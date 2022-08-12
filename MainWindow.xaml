@@ -1,0 +1,61 @@
+﻿<Window x:Class="PC_GAMING_BAZE.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:PC_GAMING_BAZE"
+        mc:Ignorable="d"
+        Title="MainWindow" Height="450" Width="800"
+       >
+
+    <Grid>
+
+        <Grid.RowDefinitions>
+            <RowDefinition Height="50"/>
+            <RowDefinition/>
+        </Grid.RowDefinitions>
+
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition/>
+            <ColumnDefinition/>
+            <ColumnDefinition/>
+        </Grid.ColumnDefinitions>
+
+        <Border Grid.Row="0" Grid.Column="0" x:Name="CashUpUserBorder" BorderBrush="Green">
+            <Grid x:Name="CashUpUser" HorizontalAlignment="Stretch" Background="#323232" VerticalAlignment="Stretch">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition/>
+                    <ColumnDefinition/>
+                </Grid.ColumnDefinitions>
+                <Image Grid.Column="0" x:Name="CashUpUserIcon" HorizontalAlignment="Center" Source="Resources/Icons/user_cash_add_icon.png" Height="30" Grid.ColumnSpan="2" Margin="-50,10,40,10" />
+                <Label Grid.Column="1" x:Name="CashUpUserLabel" Margin="-20,10,0,0" Foreground="#BCBCBC" Content="Пополнить счет"/>
+            </Grid>
+        </Border>
+
+        <Border Grid.Row="0" Grid.Column="1" x:Name="SetTimeBorder" BorderBrush="Green">
+            <Grid x:Name="SetTime" HorizontalAlignment="Stretch" Background="#323232" VerticalAlignment="Stretch">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition/>
+                    <ColumnDefinition/>
+                </Grid.ColumnDefinitions>
+                <Image Grid.Column="0" x:Name="SetTimeIcon" HorizontalAlignment="Center" Source="Resources/Icons/set_time_icon.png" Height="30" Grid.ColumnSpan="2" Margin="-50,10,40,10" />
+                <Label Grid.Column="1" x:Name="SetTimeLabel" Margin="-20,10,0,0" Foreground="#BCBCBC" Content="Установить время"/>
+            </Grid>
+        </Border>
+
+        <Border Grid.Row="0" Grid.Column="2" x:Name="ReleasedBorder" BorderBrush="Green">
+            <Grid x:Name="Released" HorizontalAlignment="Stretch" Background="#323232" VerticalAlignment="Stretch">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition/>
+                    <ColumnDefinition/>
+                </Grid.ColumnDefinitions>
+                <Image Grid.Column="0" x:Name="ReleasedIcon" HorizontalAlignment="Center" Source="Resources/Icons/released_icon.png" Height="30" Grid.ColumnSpan="2" Margin="-50,10,40,10" />
+                <Label Grid.Column="1" x:Name="ReleasedLabel" Margin="-30,10,0,0" Foreground="#BCBCBC" Content="Освобождающиеся"/>
+            </Grid>
+        </Border>
+
+        <Frame NavigationUIVisibility="Hidden" Background="#707070" x:Name="ContentView" Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="3"/>
+
+    </Grid>
+
+</Window>
