@@ -1,5 +1,7 @@
-﻿using System;
+﻿using PC_GAMING_BAZE.Models;
+using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Diagnostics;
 using System.Linq;
 using System.Text;
@@ -31,8 +33,32 @@ namespace PC_GAMING_BAZE
 
         private int summ_pushed = 0;
 
+        public ObservableCollection<ComputerHostElement> Computers;
+        /*public ObservableCollection<ComputerHostElement> ComputersList
+        {
+            get { return Computers; }
+        }*/
+
+        private void SetPC()
+        {
+
+            for (int i = 0; i < 15; i++)
+            {
+
+                ComputerHostElement OBJ = new ComputerHostElement();
+
+                OBJ.name = "Объект №" + i;
+                OBJ._pushedSumm = 0;
+
+                Computers.Add(OBJ);
+
+            }
+
+        }
+
         public CashUpUser()
         {
+
             InitializeComponent();
 
             goPushMoney_button = GoPushMoney;
@@ -111,6 +137,14 @@ namespace PC_GAMING_BAZE
 
             data.Add("alks8");
             data.Add("alexkors8");
+            data.Add("alexkors8");
+            data.Add("alexkors9");
+            data.Add("aletxkors8");
+            data.Add("alexykors8");
+            data.Add("alrexkyors8");
+            data.Add("alexktuors8");
+            data.Add("aleejkors8");
+            data.Add("alexkurors8");
             data.Add("robotator400");
             data.Add("robotator500");
 

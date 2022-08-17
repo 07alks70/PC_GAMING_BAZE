@@ -1,12 +1,14 @@
 ﻿using PC_GAMING_BAZE.Models;
+using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
-using System.Windows.Controls;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
 
-namespace PC_GAMING_BAZE
+namespace PC_GAMING_BAZE.ViewModel
 {
-
-    public partial class SetTimePage : Page
+    class SetTimeVM
     {
 
         public ObservableCollection<ComputerHostElement> Computers;
@@ -15,23 +17,19 @@ namespace PC_GAMING_BAZE
             get { return Computers; }
         }
 
-        public SetTimePage()
+        public SetTimeVM()
         {
-
-            Computers = new ObservableCollection<ComputerHostElement>();
 
             SetPC();
 
-            InitializeComponent();
-
-           // pc_l.ItemsSource = ComputersList;
+            Computers = new ObservableCollection<ComputerHostElement>();
 
         }
 
         private void SetPC()
         {
 
-            for( int i = 0; i < 15; i++)
+            for (int i = 0; i < 15; i++)
             {
 
                 ComputerHostElement OBJ = new ComputerHostElement();

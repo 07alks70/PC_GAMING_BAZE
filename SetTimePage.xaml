@@ -1,16 +1,45 @@
-﻿<Page x:Class="PC_GAMING_BAZE.SetTimePage"
+﻿<Page
       xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
       xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
-      xmlns:local="clr-namespace:PC_GAMING_BAZE"
+      xmlns:local="clr-namespace:PC_GAMING_BAZE" 
+      x:Class="PC_GAMING_BAZE.SetTimePage" 
       mc:Ignorable="d" 
-      d:DesignHeight="450" d:DesignWidth="800"
+      d:DesignHeight="1080" d:DesignWidth="1920"
       Title="SetTimePage">
 
     <Grid>
 
-        <Label HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="30" Foreground="White" Content="Это страница установки времени"/>
+        <Label Foreground="White" FontSize="50" Content="Выберите компьютер для бронирования" Margin="478,92,478,900"/>
+
+        <ListBox x:Name="pc_l" ScrollViewer.VerticalScrollBarVisibility="Hidden" Background="Transparent" Width="700" Height="400" Margin="610,228,610,452">
+
+            <WrapPanel Orientation="Horizontal" Width="700">
+                <StackPanel Width="166" Height="166">
+                    <Image Source="Resources/Icons/set_time_icon.png" Width="50" HorizontalAlignment="Center" Margin="0,60,0,0"/>
+                </StackPanel>
+                <StackPanel Width="166" Height="166">
+                    <Image Source="Resources/Icons/set_time_icon.png" Width="50" HorizontalAlignment="Center" Margin="0,60,0,0"/>
+                </StackPanel>
+                <StackPanel Width="166" Height="166">
+                    <Image Source="Resources/Icons/set_time_icon.png" Width="50" HorizontalAlignment="Center" Margin="0,60,0,0"/>
+                </StackPanel>
+                <StackPanel Width="166" Height="166">
+                    <Image Source="Resources/Icons/set_time_icon.png" Width="50" HorizontalAlignment="Center" Margin="0,60,0,0"/>
+                </StackPanel>
+                <StackPanel Width="166" Height="166">
+                    <Image Source="Resources/Icons/set_time_icon.png" Width="50" HorizontalAlignment="Center" Margin="0,60,0,0"/>
+                </StackPanel>
+                <StackPanel Width="166" Height="166">
+                    <Image Source="Resources/Icons/set_time_icon.png" Width="50" HorizontalAlignment="Center" Margin="0,60,0,0"/>
+                </StackPanel>
+                <StackPanel Width="166" Height="166">
+                    <Image Source="Resources/Icons/set_time_icon.png" Width="50" HorizontalAlignment="Center" Margin="0,60,0,0"/>
+                </StackPanel>
+            </WrapPanel>
+
+        </ListBox>
 
     </Grid>
 </Page>

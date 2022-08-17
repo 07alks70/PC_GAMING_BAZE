@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Diagnostics;
 using System.IO.Ports;
 using System.Linq;
@@ -11,6 +12,7 @@ using System.Windows.Controls;
 using System.Windows.Media;
 using System.Windows.Threading;
 using CCNET;
+using PC_GAMING_BAZE.Models;
 
 namespace PC_GAMING_BAZE
 {
@@ -60,7 +62,7 @@ namespace PC_GAMING_BAZE
         public MainWindow()
         {
 
-            InitializeComponent();
+            InitializeComponent(); 
 
             CashUpUser_Button = CashUpUser;
             SetTime_Button = SetTime;

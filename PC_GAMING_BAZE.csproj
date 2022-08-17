@@ -36,7 +36,7 @@
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="CCNET">
-      <HintPath>..\..\..\Desktop\CCNET.dll</HintPath>
+      <HintPath>bin\CCNET.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Data" />
@@ -58,12 +58,14 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="Models\ComputerHostElement.cs" />
     <Compile Include="ReleasedPage.xaml.cs">
       <DependentUpon>ReleasedPage.xaml</DependentUpon>
     </Compile>
     <Compile Include="SetTimePage.xaml.cs">
       <DependentUpon>SetTimePage.xaml</DependentUpon>
     </Compile>
+    <Compile Include="ViewModel\SetTimeVM.cs" />
     <Page Include="CashUpUser.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
