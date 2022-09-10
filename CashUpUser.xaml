@@ -26,12 +26,35 @@
 
                 <Image Grid.Column="0" Grid.Row="0" Source="Resources/Icons/user_icon.png"/>
                 <Border Grid.Column="1" Grid.Row="0" Margin="20,0,0,0" Width="330" BorderThickness="0,0,0,1" BorderBrush="White">
-                    <TextBox x:Name="input_username" FontSize="50" KeyUp="ShowUsers" BorderThickness="0" Foreground="White" BorderBrush="Transparent" Background="Transparent"/>
+                    <TextBox x:Name="input_username" FontSize="25" KeyUp="ShowUsers" BorderThickness="0" Foreground="White" BorderBrush="Transparent" Background="Transparent" LostFocus="input_username_LostFocus" GotFocus="input_username_GotFocus"/>
                 </Border>
                 <Border Grid.Column="1" Grid.Row="1" Margin="20,0,0,0" Height="155" BorderBrush="Transparent" BorderThickness="1">
-                    <ScrollViewer VerticalScrollBarVisibility="Hidden">
+
+                    <ItemsControl x:Name="lstPatient" ItemsSource="{Binding}"
+                                  AlternationCount="0"
+                                  Grid.IsSharedSizeScope="True"
+                              VirtualizingStackPanel.VirtualizationMode="Recycling"
+                              VirtualizingStackPanel.IsVirtualizing="True"
+                              Height="800"
+                                  >
+                        <ItemsControl.Template>
+                            <ControlTemplate TargetType="{x:Type ItemsControl}">
+                                <ScrollViewer CanContentScroll="True"  VerticalScrollBarVisibility="Disabled" HorizontalScrollBarVisibility="Auto">
+                                    <ItemsPresenter></ItemsPresenter>
+                                </ScrollViewer>
+                            </ControlTemplate>
+                        </ItemsControl.Template>
+                        <ItemsControl.ItemsPanel>
+                            <ItemsPanelTemplate>
+                                <WrapPanel Orientation="Vertical"  Margin="10" VirtualizingStackPanel.IsVirtualizing="True" VirtualizingStackPanel.VirtualizationMode="Recycling" ScrollViewer.IsDeferredScrollingEnabled="True">
+                                    <TextBlock Text="{Binding name}"/>
+                                </WrapPanel>
+                            </ItemsPanelTemplate>
+                        </ItemsControl.ItemsPanel>
+
+                        <!--<ScrollViewer VerticalScrollBarVisibility="Hidden">
                         <StackPanel Name="resultStack"></StackPanel>
-                    </ScrollViewer>
+                    </ScrollViewer>-->
                 </Border>
 
                 <Image x:Name="GoPushMoney" Grid.Column="2" Grid.Row="0" Source="/button_go_icon.png"/>

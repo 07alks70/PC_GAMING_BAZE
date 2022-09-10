@@ -5,41 +5,85 @@
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
       xmlns:local="clr-namespace:PC_GAMING_BAZE" 
       x:Class="PC_GAMING_BAZE.SetTimePage" 
-      mc:Ignorable="d" 
-      d:DesignHeight="1080" d:DesignWidth="1920"
-      Title="SetTimePage">
+      mc:Ignorable="d"
+      Title="SetTimePage" 
+      d:DesignHeight="450" d:DesignWidth="800">
 
     <Grid>
 
-        <Label Foreground="White" FontSize="50" Content="Выберите компьютер для бронирования" Margin="478,92,478,900"/>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="100"/>
+            <ColumnDefinition Width="*"/>
+            <ColumnDefinition Width="100"/>
+        </Grid.ColumnDefinitions>
 
-        <ListBox x:Name="pc_l" ScrollViewer.VerticalScrollBarVisibility="Hidden" Background="Transparent" Width="700" Height="400" Margin="610,228,610,452">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="150"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="200"/>
+        </Grid.RowDefinitions>
 
-            <WrapPanel Orientation="Horizontal" Width="700">
-                <StackPanel Width="166" Height="166">
-                    <Image Source="Resources/Icons/set_time_icon.png" Width="50" HorizontalAlignment="Center" Margin="0,60,0,0"/>
-                </StackPanel>
-                <StackPanel Width="166" Height="166">
-                    <Image Source="Resources/Icons/set_time_icon.png" Width="50" HorizontalAlignment="Center" Margin="0,60,0,0"/>
-                </StackPanel>
-                <StackPanel Width="166" Height="166">
-                    <Image Source="Resources/Icons/set_time_icon.png" Width="50" HorizontalAlignment="Center" Margin="0,60,0,0"/>
-                </StackPanel>
-                <StackPanel Width="166" Height="166">
-                    <Image Source="Resources/Icons/set_time_icon.png" Width="50" HorizontalAlignment="Center" Margin="0,60,0,0"/>
-                </StackPanel>
-                <StackPanel Width="166" Height="166">
-                    <Image Source="Resources/Icons/set_time_icon.png" Width="50" HorizontalAlignment="Center" Margin="0,60,0,0"/>
-                </StackPanel>
-                <StackPanel Width="166" Height="166">
-                    <Image Source="Resources/Icons/set_time_icon.png" Width="50" HorizontalAlignment="Center" Margin="0,60,0,0"/>
-                </StackPanel>
-                <StackPanel Width="166" Height="166">
-                    <Image Source="Resources/Icons/set_time_icon.png" Width="50" HorizontalAlignment="Center" Margin="0,60,0,0"/>
-                </StackPanel>
-            </WrapPanel>
+        <Label Grid.Column="0" Grid.ColumnSpan="3" Grid.Row="0" Foreground="White" FontSize="40" HorizontalAlignment="Center" Content="Выберите компьютер для бронирования" Margin="0,50,0,0"/>
 
-        </ListBox>
+        <ScrollViewer Grid.Column="1" Grid.Row="1" x:Name="pc_l" ScrollViewer.VerticalScrollBarVisibility="Hidden" ScrollViewer.HorizontalScrollBarVisibility="Hidden" Background="Transparent" Margin="0,0,0,50">
+
+            <ItemsControl VerticalAlignment="Center">
+                <ItemsControl.ItemsPanel>
+                    <ItemsPanelTemplate>
+                        <WrapPanel Width="500" IsItemsHost="True" />
+                    </ItemsPanelTemplate>
+                </ItemsControl.ItemsPanel>
+                <ItemsControl.Items>
+                    <Button Tag="1" Click="SelectPC" Background="Transparent" Width="166" Height="166" BorderThickness="0">
+                        <Image Source="Resources/Icons/set_time_icon.png" Width="50" HorizontalAlignment="Center" Margin="0,0,0,0"/>
+                    </Button>
+                    <Button Tag="2" Click="SelectPC" Background="Transparent" Width="166" Height="166" BorderThickness="0">
+                        <Image Source="Resources/Icons/set_time_icon.png" Width="50" HorizontalAlignment="Center" Margin="0,0,0,0"/>
+                    </Button>
+                    <Button Tag="3" Click="SelectPC" Background="Transparent" Width="166" Height="166" BorderThickness="0">
+                        <Image Source="Resources/Icons/set_time_icon.png" Width="50" HorizontalAlignment="Center" Margin="0,0,0,0"/>
+                    </Button>
+                    <Button Tag="4" Click="SelectPC" Background="Transparent" Width="166" Height="166" BorderThickness="0">
+                        <Image Source="Resources/Icons/set_time_icon.png" Width="50" HorizontalAlignment="Center" Margin="0,0,0,0"/>
+                    </Button>
+                    <Button Tag="5" Click="SelectPC" Background="Transparent" Width="166" Height="166" BorderThickness="0">
+                        <Image Source="Resources/Icons/set_time_icon.png" Width="50" HorizontalAlignment="Center" Margin="0,0,0,0"/>
+                    </Button>
+                    <Button Tag="6" Click="SelectPC" Background="Transparent" Width="166" Height="166" BorderThickness="0">
+                        <Image Source="Resources/Icons/set_time_icon.png" Width="50" HorizontalAlignment="Center" Margin="0,0,0,0"/>
+                    </Button>
+                    <Button Tag="7" Click="SelectPC" Background="Transparent" Width="166" Height="166" BorderThickness="0">
+                        <Image Source="Resources/Icons/set_time_icon.png" Width="50" HorizontalAlignment="Center" Margin="0,0,0,0"/>
+                    </Button>
+                    <Button Tag="8" Click="SelectPC" Background="Transparent" Width="166" Height="166" BorderThickness="0">
+                        <Image Source="Resources/Icons/set_time_icon.png" Width="50" HorizontalAlignment="Center" Margin="0,0,0,0"/>
+                    </Button>
+                    <Button Tag="9" Click="SelectPC" Background="Transparent" Width="166" Height="166" BorderThickness="0">
+                        <Image Source="Resources/Icons/set_time_icon.png" Width="50" HorizontalAlignment="Center" Margin="0,0,0,0"/>
+                    </Button>
+                    <Button Tag="10" Click="SelectPC" Background="Transparent" Width="166" Height="166" BorderThickness="0">
+                        <Image Source="Resources/Icons/set_time_icon.png" Width="50" HorizontalAlignment="Center" Margin="0,0,0,0"/>
+                    </Button>
+                </ItemsControl.Items>
+            </ItemsControl>
+
+        </ScrollViewer>
+
+        <StackPanel  Grid.Column="1" Grid.Row="3" x:Name="push_money_block" Visibility="Hidden" Orientation="Vertical" HorizontalAlignment="Center" VerticalAlignment="Top">
+            <Label Content="Вносите денежные средства" Foreground="Green" FontSize="20"/>
+            <StackPanel Orientation="Horizontal">
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="180"/>
+                        <ColumnDefinition Width="30"/>
+                    </Grid.ColumnDefinitions>
+
+                    <Label Grid.Row="0" Grid.Column="0" x:Name="balance_push_info" Foreground="White" FontSize="20"/>
+                    <Image Grid.Row="0" Grid.Column="1" x:Name="GoPay" Source="/button_go_icon.png" Width="30" HorizontalAlignment="Right"/>
+
+                </Grid>
+            </StackPanel>
+        </StackPanel>
 
     </Grid>
 </Page>

@@ -26,8 +26,12 @@ namespace PC_GAMING_BAZE
 
         private Image goPushMoney_button;
         private Image GoPay_button;
+        private User _user;
 
         public List<string> data = new List<string>();
+        public List<User> users_v = new List<User>();
+
+        public ObservableCollection<User> Users;
 
         private string user_name;
 
@@ -69,12 +73,11 @@ namespace PC_GAMING_BAZE
 
             push_money_block.Visibility = Visibility.Collapsed;
 
-            if (Keyboard.GetKeyStates(Key.F1) == KeyStates.Down) summ_pushed += 50; 
-            if (Keyboard.GetKeyStates(Key.F2) == KeyStates.Down) summ_pushed += 100;
-            if (Keyboard.GetKeyStates(Key.F3) == KeyStates.Down) summ_pushed += 200;
-            if (Keyboard.GetKeyStates(Key.F4) == KeyStates.Down) summ_pushed += 500; 
-            if (Keyboard.GetKeyStates(Key.F5) == KeyStates.Down) summ_pushed += 1000; 
+            input_username.Text = "Введите имя пользователя";
 
+            _user = new User();
+
+            Users = new ObservableCollection<User>();
 
         }
 
@@ -132,41 +135,28 @@ namespace PC_GAMING_BAZE
 
         }
 
-        private void GetUsers()
-        {
-
-            data.Add("alks8");
-            data.Add("alexkors8");
-            data.Add("alexkors8");
-            data.Add("alexkors9");
-            data.Add("aletxkors8");
-            data.Add("alexykors8");
-            data.Add("alrexkyors8");
-            data.Add("alexktuors8");
-            data.Add("aleejkors8");
-            data.Add("alexkurors8");
-            data.Add("robotator400");
-            data.Add("robotator500");
-
-        }
-
-        private void ShowUsers(object sender, KeyEventArgs e)
+        private async void ShowUsers(object sender, KeyEventArgs e)
         {
 
             //return;
 
             var found = false;
-            var border = (resultStack.Parent as ScrollViewer).Parent as Border;
+           // var border = (resultStack.Parent as ScrollViewer).Parent as Border;
 
             string query = input_username.Text;
 
-            data.Clear();
-
-            GetUsers();
+            //data.Clear();
 
             Debug.WriteLine("Query username:" + query);
 
-            if (query.Length == 0)
+            await foreach (User usr in User.GetUsers())
+            {
+
+
+
+            }
+
+           /* if (query.Length == 0)
             {
 
                 Debug.WriteLine("Закрыть варианы никнеймов");
@@ -180,13 +170,13 @@ namespace PC_GAMING_BAZE
                 Debug.WriteLine("Открыть варианы никнеймов");
                 resultStack.Children.Clear();
                 border.Visibility = System.Windows.Visibility.Visible;
-            }
+            }*/
 
             // Clear the list
-            resultStack.Children.Clear();
+           // resultStack.Children.Clear();
 
             // Add the result
-            foreach (var obj in data)
+            /*foreach (var obj in data)
             {
                 if (obj.ToLower().StartsWith(query.ToLower()))
                 {
@@ -195,7 +185,7 @@ namespace PC_GAMING_BAZE
                     addItem(obj);
                     found = true;
                 }
-            }
+            }*/
 
         }
 
@@ -240,5 +230,24 @@ namespace PC_GAMING_BAZE
             resultStack.Children.Add(block);
         }
 
+        private void input_username_GotFocus(object sender, RoutedEventArgs e)
+        {
+
+            if (input_username.Text == "Введите имя пользователя")
+            {
+                input_username.Text = "";
+            }
+
+        }
+
+        private void input_username_LostFocus(object sender, RoutedEventArgs e)
+        {
+
+            if (input_username.Text.Length <= 0)
+            {
+                input_username.Text = "Введите имя пользователя";
+            }
+
+        }
     }
 }
