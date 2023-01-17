@@ -1,7 +1,10 @@
 ﻿using System;
+using System.IO;
+using System.Drawing;
+using System.Diagnostics;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
-using System.Diagnostics;
+using System.Data.SQLite;
 using System.IO.Ports;
 using System.Linq;
 using System.Text;
@@ -13,6 +16,12 @@ using System.Windows.Media;
 using System.Windows.Threading;
 using CCNET;
 using PC_GAMING_BAZE.Models;
+using System.Reflection;
+using System.Net.Http;
+using System.Net;
+using System.Text.Json;
+using System.ComponentModel;
+using PC_GAMING_BAZE.ViewModel;
 
 namespace PC_GAMING_BAZE
 {
@@ -28,9 +37,9 @@ namespace PC_GAMING_BAZE
         private Border SetTime_Border;
         private Border Released_Border;
 
-        private Image CashUpUser_Image;
-        private Image SetTime_Image;
-        private Image Released_Image;
+        private System.Windows.Controls.Image CashUpUser_Image;
+        private System.Windows.Controls.Image SetTime_Image;
+        private System.Windows.Controls.Image Released_Image;
 
         private Label CashUpUser_Label;
         private Label SetTime_Label;
@@ -46,8 +55,9 @@ namespace PC_GAMING_BAZE
 
         private Frame PagesHost;
 
-        public SolidColorBrush color_select_menu = new SolidColorBrush(Color.FromRgb(71, 71, 71));
-        public SolidColorBrush color_no_select_menu = new SolidColorBrush(Color.FromRgb(50, 50, 50));
+        public SolidColorBrush color_select_menu = new SolidColorBrush(System.Windows.Media.Color.FromRgb(71, 71, 71));
+        public SolidColorBrush color_no_select_menu = new SolidColorBrush(System.Windows.Media.Color.FromRgb(50, 50, 50));
+
 
         /*Iccnet device;
         private bool _isStartSession = false;
@@ -59,11 +69,29 @@ namespace PC_GAMING_BAZE
         public ListView lv;
         public int _summ = 0;*/
 
+        private BackgroundWorker worker;
+
+
+        
+
+        //internal AppVM appVMO { get; set; }
+
         public MainWindow()
         {
 
-            InitializeComponent(); 
+            CashUpUser_Page = new CashUpUser();
+            SetTime_Page = new SetTimePage();
+            Released_Page = new ReleasedPage(this);
 
+
+           
+
+            //appVMO = new AppVM(this);
+
+            //this.DataContext = new AppVM(this);
+
+            InitializeComponent();
+            
             CashUpUser_Button = CashUpUser;
             SetTime_Button = SetTime;
             Released_Button = Released;
@@ -81,11 +109,6 @@ namespace PC_GAMING_BAZE
             Released_Label = ReleasedLabel;
 
             PagesHost = ContentView;
-            
-
-            CashUpUser_Page = new CashUpUser();
-            SetTime_Page = new SetTimePage();
-            Released_Page = new ReleasedPage();
 
             ShowCashUserPage();
 

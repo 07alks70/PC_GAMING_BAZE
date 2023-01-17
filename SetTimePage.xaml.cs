@@ -51,8 +51,7 @@ namespace PC_GAMING_BAZE
 
                 ComputerHostElement OBJ = new ComputerHostElement();
 
-                OBJ.name = "Объект №" + i;
-                OBJ._pushedSumm = 0;
+               
 
                 Computers.Add(OBJ);
 

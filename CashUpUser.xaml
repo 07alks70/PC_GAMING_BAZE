@@ -30,7 +30,7 @@
                 </Border>
                 <Border Grid.Column="1" Grid.Row="1" Margin="20,0,0,0" Height="155" BorderBrush="Transparent" BorderThickness="1">
 
-                    <ItemsControl x:Name="lstPatient" ItemsSource="{Binding}"
+                   <!-- <ItemsControl x:Name="lstPatient" ItemsSource="{Binding}"
                                   AlternationCount="0"
                                   Grid.IsSharedSizeScope="True"
                               VirtualizingStackPanel.VirtualizationMode="Recycling"
@@ -51,10 +51,12 @@
                                 </WrapPanel>
                             </ItemsPanelTemplate>
                         </ItemsControl.ItemsPanel>
+                   
 
-                        <!--<ScrollViewer VerticalScrollBarVisibility="Hidden">
+                    <ScrollViewer VerticalScrollBarVisibility="Hidden">
                         <StackPanel Name="resultStack"></StackPanel>
-                    </ScrollViewer>-->
+                    </ScrollViewer>
+                    </ItemsControl>-->
                 </Border>
 
                 <Image x:Name="GoPushMoney" Grid.Column="2" Grid.Row="0" Source="/button_go_icon.png"/>

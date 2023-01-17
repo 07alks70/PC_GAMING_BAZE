@@ -51,8 +51,7 @@ namespace PC_GAMING_BAZE
 
                 ComputerHostElement OBJ = new ComputerHostElement();
 
-                OBJ.name = "Объект №" + i;
-                OBJ._pushedSumm = 0;
+              
 
                 Computers.Add(OBJ);
 
@@ -149,12 +148,12 @@ namespace PC_GAMING_BAZE
 
             Debug.WriteLine("Query username:" + query);
 
-            await foreach (User usr in User.GetUsers())
+            /*await foreach (User usr in User.GetUsers())
             {
 
 
 
-            }
+            }*/
 
            /* if (query.Length == 0)
             {
@@ -210,8 +209,8 @@ namespace PC_GAMING_BAZE
 
                 user_name = input_username.Text;
 
-                var border = (resultStack.Parent as ScrollViewer).Parent as Border;
-                border.Visibility = System.Windows.Visibility.Collapsed;
+                //var border = (resultStack.Parent as ScrollViewer).Parent as Border;
+                //border.Visibility = System.Windows.Visibility.Collapsed;
             };
 
             block.MouseEnter += (sender, e) =>
@@ -227,7 +226,7 @@ namespace PC_GAMING_BAZE
             };
 
             // Add to the panel
-            resultStack.Children.Add(block);
+            //resultStack.Children.Add(block);
         }
 
         private void input_username_GotFocus(object sender, RoutedEventArgs e)

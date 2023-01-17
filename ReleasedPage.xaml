@@ -4,10 +4,15 @@
       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
       xmlns:local="clr-namespace:PC_GAMING_BAZE"
+      xmlns:loc="clr-namespace:PC_GAMING_BAZE.ViewModel"
       mc:Ignorable="d" 
       d:DesignHeight="450" d:DesignWidth="800"
       Title="ReleasedPage">
 
+    <Page.DataContext>
+        <loc:AppVM/>
+    </Page.DataContext>
+        
     <Grid>
 
         <Grid.ColumnDefinitions>
@@ -22,108 +27,26 @@
             <RowDefinition Height="255"/>
         </Grid.RowDefinitions>
 
-        <ScrollViewer ScrollViewer.VerticalScrollBarVisibility="Hidden" Grid.Column="1" Grid.Row="1" Background="Transparent" HorizontalAlignment="Center">
+        <ScrollViewer x:Name="ReleasedHosts" ScrollViewer.VerticalScrollBarVisibility="Hidden" Grid.Column="1" Grid.Row="1" Background="Transparent" HorizontalAlignment="Center">
 
-            <ItemsControl VerticalAlignment="Center">
-                <ItemsControl.ItemsPanel>
-                    <ItemsPanelTemplate>
-                        <WrapPanel Width="500" IsItemsHost="True" />
-                    </ItemsPanelTemplate>
-                </ItemsControl.ItemsPanel>
-                <ItemsControl.Items>
-                    <WrapPanel Height="50" Orientation="Horizontal" Margin="0,10,0,10">
+            <ItemsControl VerticalAlignment="Center" ItemsSource="{Binding HostsCollectionD, Mode=TwoWay}">
+                <ItemsControl.ItemTemplate>
+                    <DataTemplate>
+                        <WrapPanel Width="500" Height="50" Orientation="Horizontal" Margin="0,10,0,10">
 
-                        <Image Source="Resources/Icons/set_time_icon.png" Width="50" Height="50" HorizontalAlignment="Left" Margin="30,0,0,0"/>
-                        <Label Content="Номер: " Foreground="White" Margin="30,0,0,0"/>
-                        <Label Content="1" Foreground="White"/>
-                        <Label Content="До освобождения: " Foreground="White" Margin="30,0,0,0"/>
-                        <Label Content="3" Foreground="White" Margin="0,0,0,0"/>
-                        <Label Content="мин" Foreground="White" Margin="0,0,30,0"/>
+                            <Image Source="Resources/Icons/set_time_icon.png" Width="50" Height="50" HorizontalAlignment="Left" Margin="30,0,0,0"/>
+                            <Label Content="{Binding pcName}" Foreground="White"/>
+                            <Label Content="До освобождения: " Foreground="White" Margin="30,0,0,0"/>
+                            <Label Content="{Binding releasedTime}" Foreground="White" Margin="0,0,0,0"/>
+                            <Label Content="сек" Foreground="White" Margin="0,0,30,0"/>
 
-                    </WrapPanel>
-
-                    <WrapPanel Height="50" Orientation="Horizontal" Margin="0,10,0,10">
-
-                        <Image Source="Resources/Icons/set_time_icon.png" Width="50" Height="50" HorizontalAlignment="Left" Margin="30,0,0,0"/>
-                        <Label Content="Номер: " Foreground="White" Margin="30,0,0,0"/>
-                        <Label Content="2" Foreground="White"/>
-                        <Label Content="До освобождения: " Foreground="White" Margin="30,0,0,0"/>
-                        <Label Content="15" Foreground="White" Margin="0,0,0,0"/>
-                        <Label Content="мин" Foreground="White" Margin="0,0,30,0"/>
-
-                    </WrapPanel>
-
-                    <WrapPanel Height="50" Orientation="Horizontal" Margin="0,10,0,10">
-
-                        <Image Source="Resources/Icons/set_time_icon.png" Width="50" Height="50" HorizontalAlignment="Left" Margin="30,0,0,0"/>
-                        <Label Content="Номер: " Foreground="White" Margin="30,0,0,0"/>
-                        <Label Content="5" Foreground="White"/>
-                        <Label Content="До освобождения: " Foreground="White" Margin="30,0,0,0"/>
-                        <Label Content="20" Foreground="White" Margin="0,0,0,0"/>
-                        <Label Content="мин" Foreground="White" Margin="0,0,30,0"/>
-
-                    </WrapPanel>
-
-                    <WrapPanel Height="50" Orientation="Horizontal" Margin="0,10,0,10">
-
-                        <Image Source="Resources/Icons/set_time_icon.png" Width="50" Height="50" HorizontalAlignment="Left" Margin="30,0,0,0"/>
-                        <Label Content="Номер: " Foreground="White" Margin="30,0,0,0"/>
-                        <Label Content="4" Foreground="White"/>
-                        <Label Content="До освобождения: " Foreground="White" Margin="30,0,0,0"/>
-                        <Label Content="25" Foreground="White" Margin="0,0,0,0"/>
-                        <Label Content="мин" Foreground="White" Margin="0,0,30,0"/>
-
-                    </WrapPanel>
-
-                    <WrapPanel Height="50" Orientation="Horizontal" Margin="0,10,0,10">
-
-                        <Image Source="Resources/Icons/set_time_icon.png" Width="50" Height="50" HorizontalAlignment="Left" Margin="30,0,0,0"/>
-                        <Label Content="Номер: " Foreground="White" Margin="30,0,0,0"/>
-                        <Label Content="6" Foreground="White"/>
-                        <Label Content="До освобождения: " Foreground="White" Margin="30,0,0,0"/>
-                        <Label Content="45" Foreground="White" Margin="0,0,0,0"/>
-                        <Label Content="мин" Foreground="White" Margin="0,0,30,0"/>
-
-                    </WrapPanel>
-
-                    <WrapPanel Height="50" Orientation="Horizontal" Margin="0,10,0,10">
-
-                        <Image Source="Resources/Icons/set_time_icon.png" Width="50" Height="50" HorizontalAlignment="Left" Margin="30,0,0,0"/>
-                        <Label Content="Номер: " Foreground="White" Margin="30,0,0,0"/>
-                        <Label Content="7" Foreground="White"/>
-                        <Label Content="До освобождения: " Foreground="White" Margin="30,0,0,0"/>
-                        <Label Content="60" Foreground="White" Margin="0,0,0,0"/>
-                        <Label Content="мин" Foreground="White" Margin="0,0,30,0"/>
-
-                    </WrapPanel>
-
-                    <WrapPanel Height="50" Orientation="Horizontal" Margin="0,10,0,10">
-
-                        <Image Source="Resources/Icons/set_time_icon.png" Width="50" Height="50" HorizontalAlignment="Left" Margin="30,0,0,0"/>
-                        <Label Content="Номер: " Foreground="White" Margin="30,0,0,0"/>
-                        <Label Content="8" Foreground="White"/>
-                        <Label Content="До освобождения: " Foreground="White" Margin="30,0,0,0"/>
-                        <Label Content="90" Foreground="White" Margin="0,0,0,0"/>
-                        <Label Content="мин" Foreground="White" Margin="0,0,30,0"/>
-
-                    </WrapPanel>
-
-                    <WrapPanel Height="50" Orientation="Horizontal" Margin="0,10,0,10">
-
-                        <Image Source="Resources/Icons/set_time_icon.png" Width="50" Height="50" HorizontalAlignment="Left" Margin="30,0,0,0"/>
-                        <Label Content="Номер: " Foreground="White" Margin="30,0,0,0"/>
-                        <Label Content="9" Foreground="White"/>
-                        <Label Content="До освобождения: " Foreground="White" Margin="30,0,0,0"/>
-                        <Label Content="200" Foreground="White" Margin="0,0,0,0"/>
-                        <Label Content="мин" Foreground="White" Margin="0,0,30,0"/>
-
-                    </WrapPanel>
-
-                </ItemsControl.Items>
+                        </WrapPanel>
+                    </DataTemplate>
+                </ItemsControl.ItemTemplate>
             </ItemsControl>
-            
+
 
         </ScrollViewer>
-        
+
     </Grid>
 </Page>

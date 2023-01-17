@@ -1,5 +1,8 @@
-﻿using System;
+﻿using PC_GAMING_BAZE.Models;
+using PC_GAMING_BAZE.ViewModel;
+using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -20,8 +23,13 @@ namespace PC_GAMING_BAZE
     /// </summary>
     public partial class ReleasedPage : Page
     {
-        public ReleasedPage()
+        public MainWindow MainWindow;
+        //public ObservableCollection<ComputerHostElement> HostsCollection { get; set; }
+        public ReleasedPage(MainWindow mainWindow)
         {
+            MainWindow = mainWindow;
+            //this.DataContext = new AppVM(MainWindow);
+            //this.DataContext = MainWindow;
             InitializeComponent();
         }
     }

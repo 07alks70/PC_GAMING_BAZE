@@ -19,7 +19,7 @@ namespace PC_GAMING_BAZE.Models
         public string username;
 
 
-        public static async IAsyncEnumerable<User> GetUsers()
+        /*public static async IAsyncEnumerable<User> GetUsers()
         {
 
             List<User> users = new List<User>();
@@ -58,5 +58,6 @@ namespace PC_GAMING_BAZE.Models
 
         }
 
+    }*/
     }
 }

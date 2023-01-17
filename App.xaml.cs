@@ -13,5 +13,6 @@ namespace PC_GAMING_BAZE
     /// </summary>
     public partial class App : Application
     {
+      
     }
 }
