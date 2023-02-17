@@ -54,7 +54,7 @@ namespace PC_GAMING_BAZE
                 OBJ.name = "Объект №" + i;
                 OBJ._pushedSumm = 0;
 
-                Computers.Add(OBJ);
+                //Computers.Add(OBJ);
 
             }
 
