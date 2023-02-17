@@ -5,6 +5,8 @@ using System.ComponentModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Drawing;
+using System.Windows.Media;
 
 namespace PC_GAMING_BAZE.Models
 {
@@ -16,6 +18,14 @@ namespace PC_GAMING_BAZE.Models
         private int _hostId;
         private int _tinme_av;
         private string _releasedTime;
+        private SolidColorBrush _colorBackground;
+
+        public SolidColorBrush ColorBackground
+        {
+            get { return _colorBackground; }
+            set { _colorBackground = value; }
+        }
+
         public string releasedTime
         {
             get { return _releasedTime; }
@@ -65,6 +75,15 @@ namespace PC_GAMING_BAZE.Models
                 _releasedTime = string.Format("{0:D2}ч:{1:D2}мин",
                 t.Hours,
                 t.Minutes);
+
+                if(value == 0)
+                {
+                    ColorBackground = new SolidColorBrush(Colors.Transparent);
+                }
+                else
+                {
+                    ColorBackground = new SolidColorBrush(Colors.Red);
+                }
 
                 _tinme_av = value;
                 OnPropertyChange("_tinme_av");

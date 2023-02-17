@@ -1,4 +1,5 @@
 ﻿using PC_GAMING_BAZE.Models;
+using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Windows;
@@ -11,12 +12,6 @@ namespace PC_GAMING_BAZE
     public partial class SetTimePage : Page
     {
 
-        public ObservableCollection<ComputerHostElement> Computers;
-        public ObservableCollection<ComputerHostElement> ComputersList
-        {
-            get { return Computers; }
-        }
-
         private Image GoPay_button;
 
         private int summ_pushed = 0;
@@ -27,16 +22,16 @@ namespace PC_GAMING_BAZE
         {
 
            
-            Computers = new ObservableCollection<ComputerHostElement>();
+           // Computers = new ObservableCollection<ComputerHostElement>();
 
             //SetPC();
 
             InitializeComponent();
 
-            GoPay_button = GoPay;
+            //GoPay_button = GoPay;
 
-            EventManager.RegisterClassHandler(typeof(Image), Image.MouseLeftButtonDownEvent, new RoutedEventHandler(this.OnClickButtonGPMD));
-            EventManager.RegisterClassHandler(typeof(Image), Image.MouseLeftButtonUpEvent, new RoutedEventHandler(this.OnClickButtonGPMU));
+            //EventManager.RegisterClassHandler(typeof(Image), Image.MouseLeftButtonDownEvent, new RoutedEventHandler(this.OnClickButtonGPMD));
+            //EventManager.RegisterClassHandler(typeof(Image), Image.MouseLeftButtonUpEvent, new RoutedEventHandler(this.OnClickButtonGPMU));
 
 
             // pc_l.ItemsSource = ComputersList;
@@ -51,9 +46,7 @@ namespace PC_GAMING_BAZE
 
                 ComputerHostElement OBJ = new ComputerHostElement();
 
-               
-
-                Computers.Add(OBJ);
+             
 
             }
 
@@ -97,6 +90,5 @@ namespace PC_GAMING_BAZE
             return true;
 
         }
-
     }
 }

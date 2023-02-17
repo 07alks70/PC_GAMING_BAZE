@@ -1,4 +1,5 @@
-﻿using PC_GAMING_BAZE.Models;
+﻿using PC_GAMING_BAZE.CustomCommands;
+using PC_GAMING_BAZE.Models;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -13,12 +14,18 @@ using System.Runtime.CompilerServices;
 using System.Text;
 using System.Text.Json;
 using System.Threading.Tasks;
+using System.Windows.Controls;
+using System.Windows.Input;
 
 namespace PC_GAMING_BAZE.ViewModel
 {
 
     public class AppVM : INotifyPropertyChanged
     {
+
+        public ComputerHostElement _selectedItem;
+
+       /* public SetTimeItemClick setTimeItemClick { get; set; }*/
 
         public SQLiteConnection Connect;
 
@@ -43,9 +50,12 @@ namespace PC_GAMING_BAZE.ViewModel
         private BackgroundWorker worker;
 
         public event PropertyChangedEventHandler PropertyChanged;
+        public event EventHandler CanExecuteChanged;
 
         public AppVM()
         {
+
+          /*  setTimeItemClick = new SetTimeItemClick(SelectedCommandHandler, CanExecuteSelectedCommand);*/
 
             if (!File.Exists(Path.GetDirectoryName(Assembly.GetEntryAssembly().Location) + "PCGB.db"))
             {
@@ -65,6 +75,8 @@ namespace PC_GAMING_BAZE.ViewModel
             {
                 Connect = new SQLiteConnection("Data Source= " + Path.GetDirectoryName(Assembly.GetEntryAssembly().Location) + "PCGB.db"); // в строке указывается к какой базе подключаемся
             }
+
+            Connect.Open();
 
             HostsCollection = new ObservableCollection<ComputerHostElement>();
            // this.mainWindow = mainWindow;
@@ -107,9 +119,9 @@ namespace PC_GAMING_BAZE.ViewModel
                             string commandText = "INSERT OR IGNORE INTO hosts(host_id,host_name) VALUES (" + root.GetProperty("result")[i].GetProperty("number") + ", '" + root.GetProperty("result")[i].GetProperty("name").ToString() + "');";
 
                             SQLiteCommand Command = new SQLiteCommand(commandText, Connect);
-                            Connect.Open();
+                            ////Connect.Open();
                             Command.ExecuteNonQuery();
-                            Connect.Close();
+                            ////Connect.Close();
 
                             HttpClient client_add_guest_user_for_host = new HttpClient();
                             HttpRequestMessage request_add_guest_user_for_host = new HttpRequestMessage();
@@ -130,9 +142,9 @@ namespace PC_GAMING_BAZE.ViewModel
                                 string commandText_add_guest_user_for_host = "UPDATE hosts SET guest_acc_id=" + root_add_guest_user_for_host.GetProperty("result").ToString() + " WHERE host_id=" + root.GetProperty("result")[i].GetProperty("number").ToString() + ";";
 
                                 SQLiteCommand Command_add_guest_user_for_host = new SQLiteCommand(commandText_add_guest_user_for_host, Connect);
-                                Connect.Open();
+                                //Connect.Open();
                                 Command_add_guest_user_for_host.ExecuteNonQuery();
-                                Connect.Close();
+                                //Connect.Close();
 
 
 
@@ -188,12 +200,12 @@ namespace PC_GAMING_BAZE.ViewModel
                     string commandText = "UPDATE hosts SET time_av=0";
 
                     SQLiteCommand Command = new SQLiteCommand(commandText, Connect);
-                    Connect.Open();
+                    //Connect.Open();
                     Command.ExecuteNonQuery();
-                    Connect.Close();
+                    //Connect.Close();
 
                     SQLiteCommand Command_select_all_hosts = new SQLiteCommand("SELECT * FROM hosts", Connect);
-                    Connect.Open();
+                    //Connect.Open();
                     SQLiteDataReader myReader_select_all_hosts = Command_select_all_hosts.ExecuteReader();
 
                     while (myReader_select_all_hosts.Read())
@@ -204,11 +216,16 @@ namespace PC_GAMING_BAZE.ViewModel
 
                             SQLiteCommand Command_up = new SQLiteCommand(commandText_up, Connect);
 
-                            Command_up.ExecuteNonQuery();
+                            try
+                            {
+                                Command_up.ExecuteNonQuery();
+                            }
+                            catch
+                            {
+
+                            }
 
                             var computerHost = HostsCollection.Where(x => x.hostId == Int32.Parse(myReader_select_all_hosts["host_id"].ToString())).FirstOrDefault();
-
-                           
 
                             if (computerHost != null)
                             {
@@ -237,7 +254,14 @@ namespace PC_GAMING_BAZE.ViewModel
 
                             SQLiteCommand Command_up = new SQLiteCommand(commandText_up, Connect);
 
-                            Command_up.ExecuteNonQuery();
+                            try
+                            {
+                                Command_up.ExecuteNonQuery();
+                            }
+                            catch
+                            {
+
+                            }
 
                             var computerHost = HostsCollection.Where(x => x.hostId == Int32.Parse(myReader_select_all_hosts["host_id"].ToString())).FirstOrDefault();
 
@@ -262,7 +286,7 @@ namespace PC_GAMING_BAZE.ViewModel
                             }
                         }
                     }
-                    Connect.Close();
+                    //Connect.Close();
 
                 }
                 System.Threading.Thread.Sleep(3000);
@@ -273,6 +297,20 @@ namespace PC_GAMING_BAZE.ViewModel
         {
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
         }
+
+        public ComputerHostElement SelectedItem
+        {
+            set
+            {
+                if (value != null)
+                {
+                    Console.WriteLine(value.hostName);
+                }
+
+            }
+        }
+
+        private bool CanExecuteSelectedCommand(object data) => true;
 
     }
 }

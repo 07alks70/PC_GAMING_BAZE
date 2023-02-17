@@ -30,21 +30,44 @@
 
         <Label Grid.Column="0" Grid.ColumnSpan="3" Grid.Row="0" Foreground="White" FontSize="40" HorizontalAlignment="Center" Content="Выберите компьютер для бронирования" Margin="0,50,0,0"/>
 
-        <ScrollViewer Grid.Column="1" Grid.Row="1" x:Name="pc_l" ScrollViewer.VerticalScrollBarVisibility="Hidden" ScrollViewer.HorizontalScrollBarVisibility="Hidden" Background="Transparent" Margin="0,0,0,50">
+        <ListBox Grid.Column="1" Grid.Row="1" Grid.ColumnSpan="3" ItemsSource="{Binding HostsCollectionD}" Background="Transparent"  HorizontalAlignment="Center"
+                 SelectedItem="{Binding SelectedItem}">
+            <ListBox.ItemsPanel>
+                <ItemsPanelTemplate>
+                    <WrapPanel  HorizontalAlignment="Center"/>
+                </ItemsPanelTemplate>
+            </ListBox.ItemsPanel>
+            <ListBox.ItemTemplate>
+                <DataTemplate>
+                    <StackPanel Width="170px" Orientation="Vertical" Tag="{Binding pcName}" Background="{Binding ColorBackground}">
+                        <Image Source="Resources/Icons/set_time_icon.png" Width="50" Height="50" HorizontalAlignment="Center"/>
+                        <Label Content="{Binding pcName}" Foreground="White" HorizontalAlignment="Center"/>
+                        <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
+                            <Label Content="Осталось: " Foreground="White" Margin="10,0,0,0"/>
+                            <Label Content="{Binding releasedTime}" Foreground="White" Margin="0,0,0,0"/>
+                        </StackPanel>
+                    </StackPanel>
+                </DataTemplate>
+            </ListBox.ItemTemplate>
+        </ListBox>
 
-            <ItemsControl VerticalAlignment="Center" ItemsSource="{Binding HostsCollectionD, Mode=TwoWay}">
-                <ItemsControl.ItemTemplate>
-                    <DataTemplate>
-                        <WrapPanel Width="166" Height="166" Orientation="Vertical" Margin="0,10,0,10" Tag="{Binding pcName}">
-                            <Image Source="Resources/Icons/set_time_icon.png" Width="50" Height="50" HorizontalAlignment="Left" Margin="30,0,0,0"/>
-                            <Label Content="{Binding pcName}" Foreground="White"/>
-                        </WrapPanel>
-                    </DataTemplate>
-                </ItemsControl.ItemTemplate>
+        <!--<ScrollViewer Grid.Column="1" Grid.Row="1" Grid.ColumnSpan="3" x:Name="pc_l" ScrollViewer.VerticalScrollBarVisibility="Hidden" ScrollViewer.HorizontalScrollBarVisibility="Disabled" Background="Transparent" Margin="0,0,0,0">
+            <WrapPanel Orientation="Horizontal">
+                <ItemsControl VerticalAlignment="Center" ItemsSource="{Binding HostsCollectionD, Mode=TwoWay}">
+                    <ItemsControl.ItemTemplate>
+                        <DataTemplate>
+                            <WrapPanel Width="70px" Orientation="Vertical"  Margin="0,10,0,10" Tag="{Binding pcName}">
+                                <Image Source="Resources/Icons/set_time_icon.png" Width="50" Height="50" HorizontalAlignment="Left" Margin="0,0,0,0"/>
+                                <Label Content="{Binding pcName}" Foreground="White"/>
+                            </WrapPanel>
+                        </DataTemplate>
+                    </ItemsControl.ItemTemplate>
 
-            </ItemsControl>
+                </ItemsControl>
+            </WrapPanel>
+            
 
-        </ScrollViewer>
+        </ScrollViewer>-->
 
         <StackPanel  Grid.Column="1" Grid.Row="3" x:Name="push_money_block" Visibility="Hidden" Orientation="Vertical" HorizontalAlignment="Center" VerticalAlignment="Top">
             <Label Content="Вносите денежные средства" Foreground="Green" FontSize="20"/>
