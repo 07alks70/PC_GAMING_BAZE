@@ -13,7 +13,7 @@
     <Page.DataContext>
         <loc:AppVM/>
     </Page.DataContext>
-    
+
     <Grid>
 
         <Grid.ColumnDefinitions>
@@ -49,27 +49,21 @@
                     </StackPanel>
                 </DataTemplate>
             </ListBox.ItemTemplate>
-        </ListBox>
+        </ListBox>                                                                  
 
-        <!--<ScrollViewer Grid.Column="1" Grid.Row="1" Grid.ColumnSpan="3" x:Name="pc_l" ScrollViewer.VerticalScrollBarVisibility="Hidden" ScrollViewer.HorizontalScrollBarVisibility="Disabled" Background="Transparent" Margin="0,0,0,0">
-            <WrapPanel Orientation="Horizontal">
-                <ItemsControl VerticalAlignment="Center" ItemsSource="{Binding HostsCollectionD, Mode=TwoWay}">
-                    <ItemsControl.ItemTemplate>
-                        <DataTemplate>
-                            <WrapPanel Width="70px" Orientation="Vertical"  Margin="0,10,0,10" Tag="{Binding pcName}">
-                                <Image Source="Resources/Icons/set_time_icon.png" Width="50" Height="50" HorizontalAlignment="Left" Margin="0,0,0,0"/>
-                                <Label Content="{Binding pcName}" Foreground="White"/>
-                            </WrapPanel>
-                        </DataTemplate>
-                    </ItemsControl.ItemTemplate>
-
-                </ItemsControl>
-            </WrapPanel>
-            
-
-        </ScrollViewer>-->
-
-        <StackPanel  Grid.Column="1" Grid.Row="3" x:Name="push_money_block" Visibility="Hidden" Orientation="Vertical" HorizontalAlignment="Center" VerticalAlignment="Top">
+        <StackPanel  Grid.Column="1" Grid.Row="3" x:Name="push_money_block" Orientation="Vertical" HorizontalAlignment="Center" VerticalAlignment="Top">
+            <StackPanel.Style>
+                <Style>
+                    <Style.Triggers>
+                        <DataTrigger Binding="{Binding isVisiblePayBlock}" Value="True">
+                            <Setter Property="StackPanel.Visibility" Value="Visible"/>
+                        </DataTrigger>
+                        <DataTrigger Binding="{Binding isVisiblePayBlock}" Value="False">
+                            <Setter Property="StackPanel.Visibility" Value="Hidden"/>
+                        </DataTrigger>
+                    </Style.Triggers>
+                </Style>
+            </StackPanel.Style>
             <Label Content="Вносите денежные средства" Foreground="Green" FontSize="20"/>
             <StackPanel Orientation="Horizontal">
                 <Grid>
@@ -78,8 +72,10 @@
                         <ColumnDefinition Width="30"/>
                     </Grid.ColumnDefinitions>
 
-                    <Label Grid.Row="0" Grid.Column="0" x:Name="balance_push_info" Foreground="White" FontSize="20"/>
-                    <Image Grid.Row="0" Grid.Column="1" x:Name="GoPay" Source="/button_go_icon.png" Width="30" HorizontalAlignment="Right"/>
+                    <Label Grid.Row="0" Grid.Column="0" x:Name="balance_push_info" Content="{Binding summ_pushed}" Foreground="White" FontSize="20"/>
+                    <Button Grid.Row="0" Grid.Column="1" x:Name="GoPay" Command="{Binding ClickCommandGoPay}" Background="Transparent" Foreground="Transparent" Width="30" HorizontalAlignment="Right">
+                        <Image Source="/button_go_icon.png"/>
+                    </Button>
 
                 </Grid>
             </StackPanel>

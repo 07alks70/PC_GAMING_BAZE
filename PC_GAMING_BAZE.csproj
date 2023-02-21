@@ -107,6 +107,7 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="CommandHandler.cs" />
     <Compile Include="CustomCommands\SetTimeItemClick.cs" />
     <Compile Include="Models\ComputerHostElement.cs" />
     <Compile Include="Models\User.cs" />
@@ -119,6 +120,7 @@
     <Compile Include="UIElements\ReleasedHostWrapPanel.xaml.cs">
       <DependentUpon>ReleasedHostWrapPanel.xaml</DependentUpon>
     </Compile>
+    <Compile Include="UI\UserItemSelect.cs" />
     <Compile Include="ViewModel\AppVM.cs" />
     <Compile Include="ViewModel\SetTimeVM.cs" />
     <Page Include="CashUpUser.xaml">

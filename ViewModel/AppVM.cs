@@ -1,4 +1,5 @@
-﻿using PC_GAMING_BAZE.CustomCommands;
+﻿using CCNET;
+using PC_GAMING_BAZE.CustomCommands;
 using PC_GAMING_BAZE.Models;
 using System;
 using System.Collections.Generic;
@@ -14,14 +15,53 @@ using System.Runtime.CompilerServices;
 using System.Text;
 using System.Text.Json;
 using System.Threading.Tasks;
+using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
+using System.Windows.Threading;
 
 namespace PC_GAMING_BAZE.ViewModel
 {
 
     public class AppVM : INotifyPropertyChanged
     {
+
+        protected Iccnet device = new Iccnet();
+        protected CCNETEventArgs dataAnsw;
+        private bool _isStartSession = false;
+        private int _summ_pushed = 100;
+        public Task rr;
+
+        private bool _isVisiblePayBlock = false;
+
+        public int summ_pushed
+        {
+            get
+            {
+                return _summ_pushed;
+            }
+            set
+            {
+                _summ_pushed = value;
+                OnPropertyChange("summ_pushed");
+            }
+        }
+
+        public bool isVisiblePayBlock
+        {
+            get
+            {
+                return _isVisiblePayBlock;
+            }
+            set
+            {
+                _isVisiblePayBlock = value;
+                OnPropertyChange("isVisiblePayBlock");
+            }
+        }
+
+        public ComputerHostElement prevSelectedHost;
+        public ComputerHostElement currentSelectedHost;
 
         public ComputerHostElement _selectedItem;
 
@@ -51,6 +91,29 @@ namespace PC_GAMING_BAZE.ViewModel
 
         public event PropertyChangedEventHandler PropertyChanged;
         public event EventHandler CanExecuteChanged;
+
+        private ICommand _clickCommandGoPay;
+        public ICommand ClickCommandGoPay
+        {
+            get
+            {
+                return _clickCommandGoPay ?? (_clickCommandGoPay = new CommandHandler(() => MyAction(), () => CanExecute));
+            }
+        }
+        public bool CanExecute
+        {
+            get
+            {
+                return true;
+            }
+        }
+
+        public void MyAction()
+        {
+            isVisiblePayBlock = false;
+            blockHost(false, currentSelectedHost.hostId);
+            addMoneyAndSignInHost();
+        }
 
         public AppVM()
         {
@@ -125,7 +188,7 @@ namespace PC_GAMING_BAZE.ViewModel
 
                             HttpClient client_add_guest_user_for_host = new HttpClient();
                             HttpRequestMessage request_add_guest_user_for_host = new HttpRequestMessage();
-                            request_add_guest_user_for_host.RequestUri = new Uri("http://176.112.164.50/api/users?Username=TerminalGuest" + root.GetProperty("result")[i].GetProperty("number") + "&UserGroupId=1");
+                            request_add_guest_user_for_host.RequestUri = new Uri("http://176.112.164.50/api/users?Username=TerminalGuest010" + root.GetProperty("result")[i].GetProperty("number") + "&UserGroupId=1");
                             request_add_guest_user_for_host.Method = HttpMethod.Put;
                             request_add_guest_user_for_host.Headers.Add("Accept", "application/json");
                             request_add_guest_user_for_host.Headers.Add("Authorization", "Basic " + System.Convert.ToBase64String(System.Text.Encoding.UTF8.GetBytes("admin:admin")));
@@ -227,6 +290,8 @@ namespace PC_GAMING_BAZE.ViewModel
 
                             var computerHost = HostsCollection.Where(x => x.hostId == Int32.Parse(myReader_select_all_hosts["host_id"].ToString())).FirstOrDefault();
 
+                            Console.WriteLine(HostsCollection.Where(x => x.hostId == Int32.Parse(myReader_select_all_hosts["host_id"].ToString())).FirstOrDefault());
+
                             if (computerHost != null)
                             {
                                 App.Current.Dispatcher.Invoke((Action)delegate
@@ -265,6 +330,8 @@ namespace PC_GAMING_BAZE.ViewModel
 
                             var computerHost = HostsCollection.Where(x => x.hostId == Int32.Parse(myReader_select_all_hosts["host_id"].ToString())).FirstOrDefault();
 
+                            Console.WriteLine(myReader_select_all_hosts["guest_acc_id"]);
+
                             if (computerHost != null)
                             {
                                 App.Current.Dispatcher.Invoke((Action)delegate
@@ -279,7 +346,19 @@ namespace PC_GAMING_BAZE.ViewModel
                             {
                                 App.Current.Dispatcher.Invoke((Action)delegate 
                                 {
-                                    HostsCollection.Add(new ComputerHostElement() { guestAccId = Int32.Parse(myReader_select_all_hosts["guest_acc_id"].ToString()), hostId = Int32.Parse(myReader_select_all_hosts["host_id"].ToString()), hostName = myReader_select_all_hosts["host_name"].ToString(), tinme_av = Int32.Parse(myReader_select_all_hosts["time_av"].ToString()) });
+                           
+                                    Console.WriteLine(myReader_select_all_hosts["guest_acc_id"].ToString());
+                                    Console.WriteLine(myReader_select_all_hosts["host_id"].ToString());
+                                    Console.WriteLine(myReader_select_all_hosts["host_name"].ToString());
+                                    Console.WriteLine(myReader_select_all_hosts["time_av"].ToString());
+                                    try
+                                    {
+                                        HostsCollection.Add(new ComputerHostElement() { guestAccId = Int32.Parse(myReader_select_all_hosts["guest_acc_id"].ToString()), hostId = Int32.Parse(myReader_select_all_hosts["host_id"].ToString()), hostName = myReader_select_all_hosts["host_name"].ToString(), tinme_av = Int32.Parse(myReader_select_all_hosts["time_av"].ToString()) });
+                                    }catch
+                                    {
+
+                                    }
+                                    
                                 });
                                 NotifyPropertyChanged();
 
@@ -298,19 +377,302 @@ namespace PC_GAMING_BAZE.ViewModel
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
         }
 
+        private void OnPropertyChange(string propertyName)
+        {
+            if (PropertyChanged != null)
+            {
+                PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
+            }
+        }
+
         public ComputerHostElement SelectedItem
         {
             set
             {
+                
                 if (value != null)
                 {
-                    Console.WriteLine(value.hostName);
+
+                    currentSelectedHost = value;
+
+                    if (value.isClose)
+                    {
+                        return;
+                    }
+
+                    if(prevSelectedHost == null)
+                    {
+                        prevSelectedHost = value;
+
+                    }
+                    else
+                    {
+                        if (value.hostId == prevSelectedHost.hostId)
+                        {
+                            return;
+                        }
+
+                        blockHost(false, prevSelectedHost.hostId);
+                    }
+
+                    blockHost(true, value.hostId);
+
+                    prevSelectedHost = value;
+                    isVisiblePayBlock = true;
+                    /*new Task(() =>
+                    {
+
+                        StartPool();
+
+                    }).Start();*/
+
                 }
 
             }
         }
 
+        private async void blockHost(bool status, int hostId)
+        {
+            HttpClient client = new HttpClient();
+            HttpRequestMessage request = new HttpRequestMessage();
+            request.RequestUri = new Uri("http://176.112.164.50/api/hosts/" + hostId + "/lock/" + status.ToString());
+            request.Method = HttpMethod.Post;
+            request.Headers.Add("Accept", "*/*");
+            request.Headers.Add("Authorization", "Basic " + System.Convert.ToBase64String(System.Text.Encoding.UTF8.GetBytes("admin:admin")));
+
+            HttpResponseMessage response = await client.SendAsync(request);
+ 
+        }
+
         private bool CanExecuteSelectedCommand(object data) => true;
+
+        private void OpenConnectionBillToBill()
+        {
+
+            device = new Iccnet("COM3", Device.Bill_Validator);
+
+            device.OnAnswerReceived += new Iccnet.AnswerReceivedEvent(Device_OnAnswerReceived);
+
+        }
+
+        private void Device_OnAnswerReceived(object sender, CCNETEventArgs fe)
+        {
+
+            dataAnsw = fe;
+
+            Answer MyAnswer = fe.ReceivedAnswer;
+
+            string mgg = "";
+
+            if (MyAnswer.Data != null)
+            {
+
+                foreach (byte b in MyAnswer.Data)
+                {
+
+                    mgg += " " + b.ToString();
+
+                }
+
+            }
+
+            if (MyAnswer.Error == null)
+            {
+
+               // Dispatcher.Invoke((Action)(() => {
+
+
+                    if (MyAnswer.Message == "ACCEPTING")
+                    {
+
+                        //DebugWindowApp.Items.Add("ACCEPTING Данные: " + System.Text.Encoding.Default.GetString(MyAnswer.Data) + " " + mgg); 
+
+                    }
+
+                    if (MyAnswer.Message == "ESCROW POSITION")
+                    {
+
+
+                        //DebugWindowApp.Items.Add("ESCROW POSITION Данные: " + System.Text.Encoding.Default.GetString(MyAnswer.Data) + " " + mgg);
+
+                    }
+
+                    if (MyAnswer.Message == "STACKING")
+                    {
+
+                        //DebugWindowApp.Items.Add("STACKING Данные: " + System.Text.Encoding.Default.GetString(MyAnswer.Data) + " " + mgg);
+
+                    }
+
+                    if (MyAnswer.Message == "BILL STACKED")
+                    {
+
+                        string val = "";
+
+                        if (MyAnswer.ReceivedData[1] == 2)
+                        {
+
+                            val = MyAnswer.ReceivedData[4].ToString();
+
+                        }
+                        if (MyAnswer.ReceivedData[1] == 3)
+                        {
+
+                            val = GetCurr(MyAnswer.ReceivedData[4]).ToString();
+                            summ_pushed += Int32.Parse(val);
+                     
+                        // Dispatcher.Invoke((Action)(() => { balance_push_info.Content = "Внесено: " + summ_pushed; }));
+
+
+                    }
+
+                        //DebugWindowApp.Items.Add("Принял сумму: " + val + ' ' + "руб");
+
+                    }
+
+
+                //}));
+
+
+            }
+            else
+            {
+                
+
+            }
+
+            
+
+        }
+
+        private int GetCurr(byte byte_v)
+        {
+
+            int currc = 0;
+
+            switch (byte_v)
+            {
+
+                case 2:
+                    currc = 10;
+                    break;
+                case 3:
+                    currc = 50;
+                    break;
+                case 4:
+                    currc = 100;
+                    break;
+                case 12:
+                    currc = 200;
+                    break;
+                case 5:
+                    currc = 500;
+                    break;
+                case 6:
+                    currc = 1000;
+                    break;
+                case 13:
+                    currc = 2000;
+                    break;
+                case 7:
+                    currc = 5000;
+                    break;
+                case 11:
+                    currc = 10;
+                    break;
+                case 10:
+                    currc = 5;
+                    break;
+                case 8:
+                    currc = 1;
+                    break;
+                case 9:
+                    currc = 2;
+                    break;
+
+            }
+
+            return currc;
+
+        }
+
+        private async void StartPool()
+        {
+            bool _isRestart = false;
+
+            device.RunCommand(CCNETCommand.RESET);
+
+            if (dataAnsw.ReceivedAnswer.Data == null)
+            {
+
+                //DebugWindowApp.Items.Add("Ошибка подключения");
+
+            }
+
+            device.RunCommand(CCNETCommand.Poll);
+
+            while (dataAnsw.ReceivedAnswer.Message == "INITIALIZE")
+            {
+
+                device.RunCommand(CCNETCommand.Poll);
+            }
+
+            device.RunCommand(CCNETCommand.Poll);
+
+            Byte[] enable = new Byte[] { 255, 255, 255, 255, 255, 255 };
+            device.RunCommand(CCNETCommand.ENABLE_BILL_TYPES, enable);
+
+            if (dataAnsw.ReceivedAnswer.Data[0] == 0)
+            {
+
+                _isStartSession = true;
+
+                rr = new Task(() => {
+
+                    bool _iSession = true;
+
+                    while (_iSession)
+                    {
+
+                        _iSession = _isStartSession;
+                        device.RunCommand(CCNETCommand.Poll);
+
+                        if (dataAnsw.ReceivedAnswer.Message == "ESCROW POSITION") device.RunCommand(CCNETCommand.STACK);
+
+                    }
+
+
+                });
+                rr.Start();
+
+            }
+
+        }
+
+        private async void addMoneyAndSignInHost()
+        {
+
+            Console.WriteLine("http://176.112.164.5/api/users/" + currentSelectedHost.guestAccId.ToString() + "/deposit/" + summ_pushed.ToString() + "/-1");
+
+            HttpClient client = new HttpClient();
+            HttpRequestMessage request = new HttpRequestMessage();
+            request.RequestUri = new Uri("http://176.112.164.50/api/users/" + currentSelectedHost.guestAccId.ToString() + "/deposit/" + summ_pushed.ToString() + "/-1");
+            request.Method = HttpMethod.Put;
+            request.Headers.Add("Accept", "application/json");
+            request.Headers.Add("Authorization", "Basic " + System.Convert.ToBase64String(System.Text.Encoding.UTF8.GetBytes("admin:admin")));
+
+            HttpResponseMessage response = await client.SendAsync(request);
+
+            HttpClient clientSignIn = new HttpClient();
+            HttpRequestMessage requestSignIn = new HttpRequestMessage();
+            requestSignIn.RequestUri = new Uri("http://176.112.164.50/api/users/" + currentSelectedHost.guestAccId + "/login/" + currentSelectedHost.hostId);
+            requestSignIn.Method = HttpMethod.Post;
+            requestSignIn.Headers.Add("Accept", "application/json");
+            requestSignIn.Headers.Add("Authorization", "Basic " + System.Convert.ToBase64String(System.Text.Encoding.UTF8.GetBytes("admin:admin")));
+
+            HttpResponseMessage responseSignIn = await clientSignIn.SendAsync(requestSignIn);
+
+        }
 
     }
 }

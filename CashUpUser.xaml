@@ -30,36 +30,13 @@
                 </Border>
                 <Border Grid.Column="1" Grid.Row="1" Margin="20,0,0,0" Height="155" BorderBrush="Transparent" BorderThickness="1">
 
-                   <!-- <ItemsControl x:Name="lstPatient" ItemsSource="{Binding}"
-                                  AlternationCount="0"
-                                  Grid.IsSharedSizeScope="True"
-                              VirtualizingStackPanel.VirtualizationMode="Recycling"
-                              VirtualizingStackPanel.IsVirtualizing="True"
-                              Height="800"
-                                  >
-                        <ItemsControl.Template>
-                            <ControlTemplate TargetType="{x:Type ItemsControl}">
-                                <ScrollViewer CanContentScroll="True"  VerticalScrollBarVisibility="Disabled" HorizontalScrollBarVisibility="Auto">
-                                    <ItemsPresenter></ItemsPresenter>
-                                </ScrollViewer>
-                            </ControlTemplate>
-                        </ItemsControl.Template>
-                        <ItemsControl.ItemsPanel>
-                            <ItemsPanelTemplate>
-                                <WrapPanel Orientation="Vertical"  Margin="10" VirtualizingStackPanel.IsVirtualizing="True" VirtualizingStackPanel.VirtualizationMode="Recycling" ScrollViewer.IsDeferredScrollingEnabled="True">
-                                    <TextBlock Text="{Binding name}"/>
-                                </WrapPanel>
-                            </ItemsPanelTemplate>
-                        </ItemsControl.ItemsPanel>
-                   
 
                     <ScrollViewer VerticalScrollBarVisibility="Hidden">
                         <StackPanel Name="resultStack"></StackPanel>
                     </ScrollViewer>
-                    </ItemsControl>-->
                 </Border>
 
-                <Image x:Name="GoPushMoney" Grid.Column="2" Grid.Row="0" Source="/button_go_icon.png"/>
+                <Image x:Name="GoPushMoney" Visibility="Collapsed" Grid.Column="2" Grid.Row="0" Source="/button_go_icon.png"/>
 
                 <StackPanel x:Name="push_money_block" Grid.Row="2" Grid.Column="1" Visibility="Visible" Orientation="Vertical" HorizontalAlignment="Center">
                     <Label Content="Вносите денежные средства" Foreground="Green" FontSize="20"/>
@@ -70,11 +47,11 @@
                                 <ColumnDefinition Width="30"/>
                             </Grid.ColumnDefinitions>
 
-                            <Label Grid.Row="0" Grid.Column="0" x:Name="balance_push_info" Foreground="White" FontSize="20"/>
+                            <Label Grid.Row="0" Grid.Column="0" x:Name="balance_push_info"  Foreground="White" FontSize="20"/>
                             <Image Grid.Row="0" Grid.Column="1" x:Name="GoPay" Source="/button_go_icon.png" Width="30" HorizontalAlignment="Right"/>
-                            
+
                         </Grid>
-                     </StackPanel>
+                    </StackPanel>
                 </StackPanel>
 
             </Grid>

@@ -18,6 +18,7 @@ namespace PC_GAMING_BAZE.Models
         private int _hostId;
         private int _tinme_av;
         private string _releasedTime;
+        private bool _isClose;
         private SolidColorBrush _colorBackground;
 
         public SolidColorBrush ColorBackground
@@ -29,6 +30,12 @@ namespace PC_GAMING_BAZE.Models
         public string releasedTime
         {
             get { return _releasedTime; }
+        }
+
+        public bool isClose
+        {
+            get { return _isClose; }
+            set { _isClose = value; }
         }
 
         public string pcName
@@ -79,10 +86,12 @@ namespace PC_GAMING_BAZE.Models
                 if(value == 0)
                 {
                     ColorBackground = new SolidColorBrush(Colors.Transparent);
+                    isClose = false;
                 }
                 else
                 {
                     ColorBackground = new SolidColorBrush(Colors.Red);
+                    isClose = true;
                 }
 
                 _tinme_av = value;
